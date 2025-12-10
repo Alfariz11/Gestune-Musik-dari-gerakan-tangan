@@ -31,7 +31,6 @@ from PyQt6.QtCore import QTimer, Qt
 from gestune_ui import GestuneUI
 from gesture_processor import GestureProcessor
 
-
 class GestuneApplication:
     """
     Main application class that manages the Gestune music controller.

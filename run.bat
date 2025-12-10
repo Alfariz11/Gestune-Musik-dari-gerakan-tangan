@@ -3,22 +3,27 @@ echo ========================================
 echo   Gestune - Hand Gesture Music Controller
 echo ========================================
 echo.
-echo Starting application with uv...
-echo.
 
-REM Check if uv is installed
-where uv >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERROR] uv is not installed!
-    echo Please install uv first: https://github.com/astral-sh/uv
+REM Check if venv exists
+if not exist "venv\Scripts\activate.bat" (
+    echo [ERROR] Virtual environment not found!
+    echo Please create venv first: python -m venv venv
+    echo Then install requirements: venv\Scripts\pip install -r requirements.txt
     echo.
     pause
     exit /b 1
 )
 
-REM Run main.py using uv
+REM Activate virtual environment and run main.py
+echo Activating virtual environment...
+call venv\Scripts\activate.bat
+
+echo.
 echo Running main.py...
-uv run main.py
+python main.py
+
+REM Deactivate venv
+call venv\Scripts\deactivate.bat
 
 echo.
 echo ========================================
