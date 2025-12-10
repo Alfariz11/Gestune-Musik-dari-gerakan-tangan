@@ -12,14 +12,24 @@ Jalankan file \texttt{main.py} dengan perintah:
 python main.py
 \end{lstlisting}
 
+Aplikasi juga dapat dijalankan dengan membuka run.bat yang telah disediakan (khusus Windows).
+
 \subsubsection{Pengaturan Webcam}
 \begin{itemize}
     \item Pastikan webcam Anda aktif dan terhubung dengan baik
-    \item Posisikan diri Anda di depan webcam dengan pencahayaan yang cukup
-    \item Pastikan kedua tangan terlihat jelas dalam frame kamera
+    \item Posisikan diri Anda di depan webcam dengan pencahayaan yang cukup dengan jarak yang ideal (sekitar 60 - 100 cm)
+    \item Pastikan kedua tangan dapat terlihat jelas dalam frame kamera
 \end{itemize}
 
 \subsection{Kontrol Aplikasi}
+\subsubsection{Kontrol Panel GUI}
+Setelah aplikasi dijalankan, pada bagian kanan layar akan muncul panel GUI yang berisi beberapa kontrol berikut:
+\begin{itemize}
+    \item \textbf{BPM Slider}: Slider untuk mengatur BPM (Beats Per Minute) dari pola ritme drum, tombol reset BPM ke default (Reset) serta tombol menambahkan dan mengurangi BPM (inkremental/dekremental 10).
+    \item \textbf{Pattern Selector}: Tombol tombol untuk memilih pola ritme drum yang diinginkan
+    \item \textbf{Visualisasi Instrumen}: Area visualisasi yang menampilkan instrumen drum yang sedang aktif
+    \item \textbf{Exit}: Tombol untuk keluar dari aplikasi
+\end{itemize}
 
 \subsubsection{Tangan Kiri - Arpeggiator}
 Tangan kiri digunakan untuk mengontrol Arpeggiator dengan dua cara:
@@ -35,8 +45,8 @@ Tangan kiri digunakan untuk mengontrol Arpeggiator dengan dua cara:
     \item \textbf{Mengatur Volume}
     \begin{itemize}
         \item Lakukan gesture pinch dengan mendekatkan ibu jari dan telunjuk
-        \item Semakin kecil jarak antara ibu jari dan telunjuk, semakin kecil volume
-        \item Semakin besar jarak antara ibu jari dan telunjuk, semakin besar volume
+        \item Semakin kecil jarak antara ibu jari dan telunjuk, semakin besar volume
+        \item Semakin besar jarak antara ibu jari dan telunjuk, semakin kecil volume
     \end{itemize}
 \end{enumerate}
 
@@ -49,12 +59,12 @@ Tangan kanan digunakan untuk mengontrol Drum Machine dengan mengaktifkan instrum
 \label{tab:drum-mapping}
 \begin{tabular}{lll}
 \hline
-\textbf{Jari} & \textbf{Instrumen} & \textbf{Deskripsi} \\ \hline
-Ibu Jari (Thumb) & Kick & Bass drum \\
-Telunjuk (Index) & Snare & Snare drum \\
-Tengah (Middle) & Hi-hat & Closed hi-hat \\
-Manis (Ring) & Clap & Hand clap \\
-Kelingking (Pinky) & Clap & Hand clap (alternatif) \\
+\textbf{Jari} & \textbf{Instrumen} \\ \hline
+Ibu Jari (Thumb) & Kick \\
+Telunjuk (Index) & Snare \\
+Tengah (Middle) & Hi-hat \\
+Manis (Ring) & Tom \\
+Kelingking (Pinky) & Crash \\
 \hline
 \end{tabular}
 \end{table}
@@ -62,25 +72,20 @@ Kelingking (Pinky) & Clap & Hand clap (alternatif) \\
 Setiap jari yang diangkat akan mengaktifkan track instrumen tersebut dalam loop sequencer yang sedang berjalan.
 
 \paragraph{Penggantian Pola (Pattern Switching)}
-Terdapat 7 pola ritme yang berbeda yang dapat dipilih pengguna:
+Terdapat 7 pola ritme bawaan yang dapat dipilih pengguna:
 \begin{itemize}
-    \item Pattern 1: Basic Rock
-    \item Pattern 2: House
-    \item Pattern 3: Hip Hop
-    \item Pattern 4: Funk
-    \item Pattern 5: Breakbeat
-    \item Pattern 6: Latin/Bossa
-    \item Pattern 7: Trap
+    \item Pattern 1: Modern Pop Groove
+    \item Pattern 2: Dark Trap Groove
+    \item Pattern 3: Minimal Trap Beat
+    \item Pattern 4: Uptempo Breakbeat
+    \item Pattern 5: Bounce Groove
+    \item Pattern 6: Percussive Groove
+    \item Pattern 7: Dance/Pop Rhtyhm
 \end{itemize}
 
 Untuk mengganti pola, pengguna dapat melakukan gesture \textbf{Kepalan Tangan (Fist)} pada tangan kanan. Sistem akan berpindah ke pola berikutnya secara siklis.
 
-\subsubsection{Kontrol Keyboard}
-Selain kontrol dengan tangan, terdapat juga kontrol keyboard:
-
-\begin{itemize}
-    \item \textbf{Q atau ESC}: Keluar dari aplikasi
-\end{itemize}
+Pengguna juga dapat menambahkan pattern mereka sendiri dengan mengedit file patterns.py. 
 
 \subsection{Tips Penggunaan}
 
@@ -89,13 +94,12 @@ Untuk mendapatkan pengalaman terbaik saat menggunakan aplikasi Gestune, perhatik
 \begin{enumerate}
     \item \textbf{Pencahayaan}: Pastikan ruangan memiliki pencahayaan yang cukup agar hand tracking dapat mendeteksi tangan dengan optimal
     
-    \item \textbf{Jarak dengan Webcam}: Jaga jarak yang nyaman dengan webcam (sekitar 50-100 cm)
+    \item \textbf{Jarak dengan Webcam}: Jaga jarak yang nyaman dengan webcam (sekitar 60-100 cm)
     
     \item \textbf{Posisi Tangan}: Pastikan kedua tangan terlihat jelas dalam frame kamera dan tidak tertutup oleh objek lain
     
     \item \textbf{Gerakan}: Lakukan gerakan dengan smooth dan tidak terlalu cepat agar sistem dapat mendeteksi dengan akurat
     
-    \item \textbf{Visualizer}: Perhatikan Audio Reactive Visualizer yang menampilkan efek partikel sesuai intensitas dan ritme musik yang sedang dimainkan
 \end{enumerate}
 
 \subsection{Troubleshooting}
@@ -104,6 +108,6 @@ Jika mengalami masalah saat menggunakan aplikasi, coba solusi berikut:
 
 \begin{itemize}
     \item \textbf{Tangan tidak terdeteksi}: Perbaiki pencahayaan atau sesuaikan jarak dengan webcam
-    \item \textbf{Audio tidak keluar}: Periksa pengaturan audio sistem Anda atau jalankan \texttt{test\_drums.py} untuk verifikasi
+    \item \textbf{Audio tidak keluar}: Periksa pengaturan audio sistem Anda atau jalankan \texttt{test\_patterns.py} dan \textit{test\_audio\_engine.py} untuk verifikasi
     \item \textbf{Aplikasi lambat}: Tutup aplikasi lain yang berjalan untuk mengalokasikan lebih banyak resource
 \end{itemize}

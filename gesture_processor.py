@@ -130,7 +130,11 @@ class GestureProcessor(QThread):
             
             # Initialize AudioEngine
             self.audio = AudioEngine()
-            print("� AudioEngine initialized")
+            print("🔊 AudioEngine initialized")
+            
+            # Set up drum hit callback for synchronized visualization
+            self.audio.set_drum_hit_callback(self._on_drum_played)
+            print("🎵 Drum callback connected for synchronized visualization")
             
             print("✅ All components successfully initialized!")
             return True
@@ -344,11 +348,11 @@ class GestureProcessor(QThread):
             # 0: Thumb -> Kick
             # 1: Index -> Snare
             # 2: Middle -> Hihat
-            # 3: Ring -> Clap (mapped to crash in engine for now)
-            # 4: Pinky -> Crash (not in engine default, maybe ignore or map to clap too)
+            # 3: Ring -> High Tom
+            # 4: Pinky -> Crash Cymbal
             
             active_drums = set()
-            drum_map = {0: 'kick', 1: 'snare', 2: 'hihat', 3: 'clap', 4: 'clap'}
+            drum_map = {0: 'kick', 1: 'snare', 2: 'hihat', 3: 'hightom', 4: 'crashcymbal'}
             
             for i, is_extended in enumerate(fingers_extended):
                 if is_extended and i in drum_map:
@@ -371,22 +375,24 @@ class GestureProcessor(QThread):
                     self.last_pattern_change_time = current_time
                     self.pattern_changed.emit(new_pattern_idx - 1) # UI expects 0-indexed
                     print(f"✊ Fist detected! Switching to Pattern {new_pattern_idx}")
-            
-            # Emit drum hits for UI visualization
-            # Since the engine handles timing, we might not know exactly when it hits
-            # unless we add a callback or just visualize the active state.
-            # For now, we can emit "active" drums as hits with low velocity just to show they are selected?
-            # Or better, just don't emit hits if we can't sync.
-            # The UI uses drum_hit to flash the drum. 
-            # Let's emit a hit if it's active, but maybe throttle it?
-            # Actually, the old code emitted hits when they were PLAYED by the sequencer.
-            # The new engine doesn't report back when a note is played.
-            # We will just emit the active drums so the UI knows they are "on".
-            for drum in active_drums:
-                 self.drum_hit.emit(drum, 0.5)
 
         except Exception as e:
             print(f"Drum processing error: {e}")
+    
+    def _on_drum_played(self, drum_name: str, velocity: float):
+        """
+        Callback function called when AudioEngine plays a drum.
+        This ensures drum visualization is synchronized with actual audio playback.
+        
+        Args:
+            drum_name: Name of the drum that was played
+            velocity: Velocity of the drum hit (0-1)
+        """
+        try:
+            # Emit signal to UI for synchronized visualization
+            self.drum_hit.emit(drum_name, velocity)
+        except Exception as e:
+            print(f"Drum callback error: {e}")
     
     def _draw_hand_on_frame(
         self, 

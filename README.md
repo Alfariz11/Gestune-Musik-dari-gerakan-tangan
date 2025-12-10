@@ -46,8 +46,6 @@
 - **Python 3.8** atau lebih tinggi
 - **Webcam** (untuk hand tracking)
 - **Sistem Operasi**: Windows, macOS, atau Linux
-- **RAM**: Minimal 4GB (disarankan 8GB)
-- **Processor**: Dual-core atau lebih tinggi
 
 ### Langkah Instalasi
 
@@ -79,6 +77,7 @@
 4. **Verifikasi instalasi** (opsional)
    ```bash
    python test_audio_engine.py
+   python test_patterns.py
    ```
 
 ---
@@ -111,8 +110,8 @@
    - BPM control dan pattern selector
 
 4. **Mulai bermain musik**:
-   - Posisikan tangan kiri di zona biru untuk kontrol melodi
-   - Posisikan tangan kanan di zona pink untuk kontrol drum
+   - Posisikan tangan kiri untuk kontrol melodi
+   - Posisikan tangan kanan untuk kontrol drum
    - Eksperimen dengan berbagai gesture dan pattern!
 
 ### 🎮 Kontrol Aplikasi
@@ -122,10 +121,10 @@
 - **🎹 Pitch Control**: Gerakkan tangan naik/turun untuk mengubah nada
   - Semakin tinggi tangan = nada semakin tinggi
   - Range: 3 oktaf penuh (C2 - C5)
-- **🎚️ Volume Control**: Pinch gesture (pertemukan ibu jari & telunjuk)
+- **🎚️ Volume Control**: Pinch gesture tangan kiri (pertemukan ibu jari & telunjuk)
   - Semakin rapat jari = volume semakin kecil
   - Semakin renggang = volume semakin besar
-- **⏱️ BPM Control**: Pinch rapat + gerakkan tangan naik/turun
+- **⏱️ BPM Control**: Pinch rapat tangan kanan + gerakkan tangan naik/turun
   - Unlock BPM dengan pinch yang sangat rapat
   - Gerakkan tangan untuk mengatur tempo (40-200 BPM)
 
@@ -136,24 +135,18 @@
 - **👍 Jempol** → Kick Drum
 - **☝️ Telunjuk** → Snare Drum
 - **🖕 Jari Tengah** → Hi-Hat
-- **💍 Jari Manis** → Clap
-- **🤙 Kelingking** → Clap (Alternatif)
+- **💍 Jari Manis** → Tom
+- **🤙 Kelingking** → Crash
 
 **Catatan**:
 
 - Drum akan bermain dalam loop sequencer selama jari diangkat.
 - Turunkan jari untuk mematikan instrumen tersebut.
 
-#### ⌨️ Kontrol Keyboard
-
-- **Q** atau **ESC**: Keluar dari aplikasi
-- **Slider BPM**: Geser untuk mengatur tempo manual
-- **Pattern Buttons**: Klik untuk ganti pattern drum langsung
-
 ### 💡 Tips Penggunaan
 
 - ✅ Pastikan pencahayaan ruangan cukup terang untuk tracking optimal
-- ✅ Posisikan diri pada jarak 50-100 cm dari webcam
+- ✅ Posisikan diri pada jarak 60-100 cm dari webcam
 - ✅ Jaga agar kedua tangan berada dalam frame kamera
 - ✅ Tangan kiri di zona biru (sisi kiri), tangan kanan di zona pink (sisi kanan)
 - ✅ Gerakkan tangan dengan smooth untuk hasil audio yang halus
@@ -165,6 +158,7 @@ Untuk memverifikasi sistem audio berfungsi dengan baik:
 
 ```bash
 python test_audio_engine.py
+python test_patterns.py
 ```
 
 Program ini akan memutar arpeggio dan drum pattern sederhana untuk memastikan engine audio berjalan lancar.
@@ -183,5 +177,6 @@ Program ini akan memutar arpeggio dan drum pattern sederhana untuk memastikan en
 | 11/30/2025 | Remake Pinch BPM Controller                      | Implementasi kontrol BPM via gesture pinch pada tangan kanan, sinkronisasi perubahan BPM dengan UI slider, smoothing untuk transisi BPM yang halus                                                                                               |
 | 12/01/2025 | Update Dokumentasi Laporan Final Proyek Fix Bug  | Update dokumentasi laporan final, perbaikan README, penambahan penjelasan fitur-fitur baru, banner. Perbaikan beberapa bug seperti BPM slider dan arpegiattor yang overlap. Tambah skrip untuk pattern drum. Perubahan minor pada UI             |
 | 12/02/2025 | Refactoring Audio Engine & Integrasi Sistem      | Mengganti Arpeggiator dan Drum Machine terpisah dengan AudioEngine terpadu. Implementasi scheduler loop untuk timing yang lebih presisi. Mengubah kontrol drum menjadi finger mapping. Integrasi sukses ke main application.                     |
+| 12/11/2025 | Finalisasi Laporan dan Perbaikan Minor pada Code      | Penyelesaian laporan tugas besar, perbaikan minor pada kode dan dokumentasi                     |
 
 ---

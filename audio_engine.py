@@ -3,6 +3,7 @@ import numpy as np
 import threading
 import time
 import os
+from patterns import DRUM_PATTERNS
 
 class AudioEngine:
     def __init__(self, assets_path=None):
@@ -31,7 +32,9 @@ class AudioEngine:
             'kick': 'kick.wav',
             'snare': 'snare.wav',
             'hihat': 'hihat.wav',
-            'clap': 'crashcymbal.wav' # Fallback/Mapping
+            'hightom': 'hightom.wav',
+            'crashcymbal': 'crashcymbal.wav',
+            'clap': 'crashcymbal.wav' # Fallback/Mapping for backward compatibility
         }
 
         for name, filename in drum_files.items():
@@ -64,6 +67,9 @@ class AudioEngine:
         self.running = True
         self.lock = threading.RLock()
         
+        # Callback for drum hits (for UI synchronization)
+        self.drum_hit_callback = None
+        
         # Start Scheduler Thread
         self.scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
         self.scheduler_thread.start()
@@ -80,64 +86,31 @@ class AudioEngine:
         return scale
 
     def _initialize_patterns(self):
-        # Define 7 distinct patterns
+        """
+        Convert patterns from patterns.py (dict format) to array format.
+        DRUM_PATTERNS uses format: {'drum': {step: velocity, ...}}
+        We need format: [{'drum': [0,1,0,1,...], ...}, ...]
+        """
         patterns = []
         
-        # Pattern 1: Basic Rock
-        patterns.append({
-            'kick':  [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            'hihat': [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-            'clap':  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        })
-        
-        # Pattern 2: House
-        patterns.append({
-            'kick':  [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            'hihat': [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
-            'clap':  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-        })
-        
-        # Pattern 3: Hip Hop
-        patterns.append({
-            'kick':  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            'hihat': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            'clap':  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        })
-        
-        # Pattern 4: Funk
-        patterns.append({
-            'kick':  [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
-            'hihat': [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-            'clap':  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        })
-        
-        # Pattern 5: Breakbeat
-        patterns.append({
-            'kick':  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
-            'hihat': [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-            'clap':  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        })
-        
-        # Pattern 6: Latin/Bossa
-        patterns.append({
-            'kick':  [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-            'snare': [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0], # Clave-ish
-            'hihat': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            'clap':  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        })
-        
-        # Pattern 7: Trap
-        patterns.append({
-            'kick':  [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            'snare': [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            'hihat': [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1], # Fast hats
-            'clap':  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-        })
+        for pattern_idx in sorted(DRUM_PATTERNS.keys()):
+            pattern_dict = DRUM_PATTERNS[pattern_idx]
+            converted_pattern = {}
+            
+            # Convert each drum's pattern from dict to array
+            for drum_name in ['kick', 'snare', 'hihat', 'hightom', 'crashcymbal']:
+                # Initialize 16-step array with zeros
+                drum_pattern = [0] * 16
+                
+                # Fill in the hits from the pattern dict
+                if drum_name in pattern_dict:
+                    for step, velocity in pattern_dict[drum_name].items():
+                        if 0 <= step < 16:
+                            drum_pattern[step] = 1 if velocity > 0 else 0
+                
+                converted_pattern[drum_name] = drum_pattern
+            
+            patterns.append(converted_pattern)
         
         return patterns
 
@@ -193,6 +166,12 @@ class AudioEngine:
                 if drum_name in self.drum_pattern and self.drum_pattern[drum_name][step]:
                     if drum_name in self.drums:
                         self.drums[drum_name].play()
+                        # Notify UI via callback
+                        if self.drum_hit_callback:
+                            try:
+                                self.drum_hit_callback(drum_name, 1.0)
+                            except Exception as e:
+                                print(f"Callback error: {e}")
             
             # Play Arpeggios
             for hand_idx, arp_data in self.active_arpeggios.items():
@@ -249,6 +228,12 @@ class AudioEngine:
         with self.lock:
             if hand_idx in self.active_arpeggios:
                 del self.active_arpeggios[hand_idx]
+    
+    def set_drum_hit_callback(self, callback):
+        """Set callback function to be called when a drum is hit.
+        Callback signature: callback(drum_name: str, velocity: float)
+        """
+        self.drum_hit_callback = callback
     
     def set_bpm(self, bpm):
         with self.lock:

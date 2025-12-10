@@ -5,7 +5,7 @@
 
 Proyek ini mengembangkan sistem multimedia yang memungkinkan pengguna menghasilkan musik hanya dengan gerakan tangan secara real-time. Sistem ini memanfaatkan MediaPipe Hand Tracking untuk mendeteksi posisi dan gerakan tangan, yang kemudian digunakan untuk mengontrol dua elemen utama: Arpeggiator dan Drum Machine.
 
-Pada Arpeggiator, tinggi posisi tangan mengatur pitch nada, sementara gerakan pinch gesture mengatur volume suara. Sedangkan Drum Machine memungkinkan pengguna untuk memainkan instrumen drum secara individual dengan mengangkat jari yang sesuai. Selain itu, sistem dilengkapi dengan Audio Reactive Visualizer yang menampilkan efek partikel sesuai intensitas dan ritme musik.
+Pada Arpeggiator, tinggi posisi tangan mengatur pitch nada, sementara gerakan pinch gesture mengatur volume suara. Sedangkan Drum Machine memungkinkan pengguna untuk memainkan instrumen drum secara individual dengan mengangkat jari yang sesuai.
 
 \subsection{Anggota Tim}
 
@@ -36,23 +36,8 @@ Aplikasi Gestune memiliki beberapa fitur utama yang memungkinkan pengguna untuk 
 \end{itemize}
 
 \subsubsection{Fungsi Gesture Tangan Kanan}
-Tangan kanan berperan sebagai antarmuka utama untuk mengendalikan modul drum pada sistem ini. Gesture yang dibaca dari posisi jari digunakan untuk memicu bunyi instrumen perkusi, mengaktifkan pola ritmis, serta melakukan pergantian pola secara real-time. Secara umum, fitur-fitur tangan kanan yang digunakan dalam sistem adalah sebagai berikut:
 \begin{itemize}
-    \item \textbf{Pemicu bunyi instrumen drum}: Setiap jari tangan kanan merepresentasikan satu instrumen drum sehingga perubahan posisi jari dapat langsung menghasilkan bunyi \textit{kick}, \textit{snare}, \textit{hihat}, \textit{hightom}, atau \textit{crash cymbal}.
-    \item \textbf{Aktivasi instrumen dalam sequencer}: Ketika jari berada pada posisi terbuka, instrumen terkait akan mengikuti pola ritmis yang telah diprogram pada \textit{drum sequencer}.
-    \item \textbf{Pemicu manual (manual trigger)}: Perubahan gerakan dari jari tertutup menjadi terbuka digunakan sebagai pemicu pukulan drum secara langsung untuk memberikan variasi ritmis yang lebih ekspresif.
+    \item \textbf{Pemicu bunyi instrumen drum}: Setiap jari tangan kanan merepresentasikan satu instrumen drum sehingga perubahan posisi jari dapat langsung menghasilkan bunyi \textit{kick}, \textit{snare}, \textit{hihat}, \textit{hightom}, atau \textit{crash cymbal}. Ketika jari berada pada posisi terbuka, instrumen terkait akan mengikuti pola ritmis yang telah diprogram pada \textit{drum sequencer}.
     \item \textbf{Pergantian pola ritme}: Gesture menggenggam (\textit{fist gesture}) digunakan untuk mengganti pola ritme drum secara otomatis tanpa menggunakan tombol fisik atau antarmuka tambahan.
+    \item \textbf{Kontrol BPM}: Fitur ini bekerja dengan membuka kunci pengatur BPM. Saat tangan kanan membuat gesture pinch, pengguna dapat menggerakkan tangan ke atas atau ke bawah untuk menyesuaikan BPM (Beats Per Minute) dari pola ritme drum yang sedang dimainkan.
 \end{itemize}
-
-\subsubsection{Drum Machine (Tangan Kanan)}
-Drum Machine menyediakan lima pola ritme drum yang berbeda, yang dapat diganti dengan membuat gestur menggenggam tangan kanan. :
-\begin{itemize}
-    \item \textbf{Pattern 1 (Basic 4/4)}: Tidak ada jari yang terangkat atau hanya telunjuk
-    \item \textbf{Pattern 2 (With clap)}: Telunjuk + tengah terangkat
-    \item \textbf{Pattern 3 (Syncopated)}: Telunjuk + tengah + manis terangkat
-    \item \textbf{Pattern 4 (Break beat)}: Semua jari kecuali ibu jari terangkat
-    \item \textbf{Pattern 5 (Minimal)}: Semua jari terangkat
-\end{itemize}
-
-\subsubsection{Audio Reactive Visualizer}
-Sistem dilengkapi dengan visualizer yang menampilkan efek partikel secara real-time yang bereaksi terhadap intensitas dan ritme musik yang dihasilkan. Visualizer ini membuat pengalaman pengguna lebih interaktif dan menarik.
