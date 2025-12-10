@@ -6,6 +6,7 @@
 
 **Gestune** adalah aplikasi musik interaktif yang memungkinkan pengguna menciptakan musik secara real-time menggunakan gerakan tangan. Memanfaatkan teknologi **MediaPipe Hand Tracking** dan **PyQt6**, aplikasi ini mendeteksi posisi dan gerakan tangan untuk mengontrol dua instrumen musik virtual:
 
+**Demo Youtube** : [🎵 Gestune: Musik dari Gerakan Tangan || Sistem Teknologi Multimedia](https://youtu.be/rLHPHB-vdGE?si=GlDebpr-tt8r3Ufi)
 ### 🎹 Arpeggiator (Tangan Kiri)
 
 - **Pitch Control**: Tinggi posisi tangan mengatur nada (3 oktaf penuh)

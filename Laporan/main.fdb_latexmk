@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1765386524.60518 "c:/itera/TongueBeat-Musik-dengan-Gerakan-Lidah/Laporan/main.tex" "main.pdf" "main" 1765386527.44335 0
+["pdflatex"] 1765391525.93033 "c:/itera/TongueBeat-Musik-dengan-Gerakan-Lidah/Laporan/main.tex" "main.pdf" "main" 1765391528.53274 0
   "C:/Users/Aloisius Edwin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1764589718 2256246 ac80bc2747f78b3d552c3292bf7916b8 ""
   "C:/Users/Aloisius Edwin/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1756355449 13261687 6779e08a624c5d3bd11b456e6a208850 ""
   "C:/Users/Aloisius Edwin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -259,10 +259,10 @@
   "chapters/02_landasan_teori.tex" 1765372695 2612 78c89959fb240e47bf9aa578b3ab85e2 ""
   "chapters/03_metodologi.tex" 1765386520 4751 6b10065ee7d46ca7a9a741deee003ed6 ""
   "chapters/04_hasil_analisis.tex" 1765385302 14447 ec17843a9b1548979c1de370346279fc ""
-  "chapters/06_lampiran.tex" 1765386520 2699 b741d0d20d02f084936c4060691bc2de ""
+  "chapters/06_lampiran.tex" 1765391524 2781 0fcd9ebc0e9623f8f0ff116f51489214 ""
   "chapters/cover.tex" 1764592628 789 b768e4786973b25e8362bd64a47ceea1 ""
-  "main.aux" 1765386527 9277 e5692cc334193967b83dcfe0e89a6713 "pdflatex"
-  "main.out" 1765386527 7421 f02293a1063015cb32b6082e891b1b8e "pdflatex"
+  "main.aux" 1765391528 9277 e5692cc334193967b83dcfe0e89a6713 "pdflatex"
+  "main.out" 1765391528 7421 f02293a1063015cb32b6082e891b1b8e "pdflatex"
   "main.tex" 1764589771 4750 15b34abd75b3cdb7355182f8a5b60fd1 ""
   (generated)
   "main.aux"
